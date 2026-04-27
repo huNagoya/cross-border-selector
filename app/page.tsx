@@ -199,6 +199,50 @@ export default function Home() {
               <p className="text-amber-800 text-sm leading-relaxed">{result.riskWarning}</p>
             </div>
 
+            {/* 买家洞察 */}
+            <div className="bg-purple-50 rounded-2xl p-5 border border-purple-100">
+              <div className="flex items-center gap-2 mb-4 text-purple-700 font-semibold">
+                <Users className="w-4 h-4" />
+                买家洞察
+              </div>
+              {/* 痛点 + 好评并排 */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <div className="bg-white rounded-xl p-4 border border-purple-100">
+                  <div className="text-xs font-semibold text-purple-500 mb-2 uppercase tracking-wide">买家痛点</div>
+                  <div className="space-y-2">
+                    {result.buyerPainPoints.map((point, i) => (
+                      <div key={i} className="flex items-start gap-2">
+                        <span className="flex-shrink-0 w-4 h-4 rounded-full bg-red-100 text-red-500 text-xs font-bold flex items-center justify-center mt-0.5">!</span>
+                        <span className="text-sm text-gray-700 leading-relaxed">{point}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="bg-white rounded-xl p-4 border border-purple-100">
+                  <div className="text-xs font-semibold text-purple-500 mb-2 uppercase tracking-wide">买家好评点</div>
+                  <div className="space-y-2">
+                    {result.buyerPraise.map((point, i) => (
+                      <div key={i} className="flex items-start gap-2">
+                        <span className="flex-shrink-0 w-4 h-4 rounded-full bg-green-100 text-green-500 text-xs font-bold flex items-center justify-center mt-0.5">✓</span>
+                        <span className="text-sm text-gray-700 leading-relaxed">{point}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              {/* 未被满足需求 + 差异化角度并排 */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="bg-white rounded-xl p-4 border border-purple-100">
+                  <div className="text-xs font-semibold text-purple-500 mb-2 uppercase tracking-wide">未被满足的需求</div>
+                  <p className="text-sm text-gray-700 leading-relaxed">{result.unmetNeeds}</p>
+                </div>
+                <div className="bg-white rounded-xl p-4 border border-purple-100">
+                  <div className="text-xs font-semibold text-purple-500 mb-2 uppercase tracking-wide">差异化切入角度</div>
+                  <p className="text-sm text-gray-700 leading-relaxed">{result.differentiationAngle}</p>
+                </div>
+              </div>
+            </div>
+
             {/* 重新分析 */}
             <div className="text-center pt-2">
               <button

@@ -47,7 +47,11 @@ export async function POST(req: NextRequest) {
   "targetAudience": "目标人群描述，30字内",
   "coreSellingPoints": ["核心卖点1", "核心卖点2", "核心卖点3"],
   "recommendedPlatforms": "推荐平台，如Amazon/Shopee/TikTok Shop，并说明理由，40字内",
-  "riskWarning": "风险提示，如侵权/关税/季节性等，50字内"
+  "riskWarning": "风险提示，如侵权/关税/季节性等，50字内",
+  "buyerPainPoints": ["买家痛点1", "买家痛点2", "买家痛点3"],
+  "buyerPraise": ["买家好评点1", "买家好评点2", "买家好评点3"],
+  "unmetNeeds": "市场上还没有被满足的需求，50字内",
+  "differentiationAngle": "新卖家差异化切入的最佳角度，50字内"
 }`
 
     const rawResponse = await callQwen([
@@ -65,10 +69,20 @@ export async function POST(req: NextRequest) {
       coreSellingPoints: toStringArray(raw.coreSellingPoints).slice(0, 3),
       recommendedPlatforms: toStr(raw.recommendedPlatforms) || 'Amazon',
       riskWarning: toStr(raw.riskWarning) || '请注意平台规则',
+      buyerPainPoints: toStringArray(raw.buyerPainPoints).slice(0, 3),
+      buyerPraise: toStringArray(raw.buyerPraise).slice(0, 3),
+      unmetNeeds: toStr(raw.unmetNeeds) || '暂无数据',
+      differentiationAngle: toStr(raw.differentiationAngle) || '暂无数据',
     }
 
     if (result.coreSellingPoints.length === 0) {
       result.coreSellingPoints = ['品质优良', '性价比高', '发货快速']
+    }
+    if (result.buyerPainPoints.length === 0) {
+      result.buyerPainPoints = ['价格偏高', '品质参差不齐', '售后服务不稳定']
+    }
+    if (result.buyerPraise.length === 0) {
+      result.buyerPraise = ['使用方便', '性价比高', '发货速度快']
     }
 
     return NextResponse.json({ success: true, data: result })
